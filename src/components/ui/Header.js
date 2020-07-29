@@ -73,6 +73,7 @@ const ElevationScroll = (props) => {
      const handleClick = (e) =>{
       setAnchorEl(e.currentTarget);
       setOpen(true);
+      setValue(1);
      }
 
      const handleClose = (e) =>{
@@ -121,9 +122,10 @@ const ElevationScroll = (props) => {
                 </Button>
                 {/* id should match with aria owns which was defined on services tab */}
                 <Menu id='simple-menu' anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{onMouseLeave: handleClose}}>
-                  <MenuItem onClick={handleClose}>Custom Software Development</MenuItem>
-                  <MenuItem onClick={handleClose}>Mobile App Development</MenuItem>
-                  <MenuItem onClick={handleClose}>Website Development</MenuItem>
+                <MenuItem onClick={handleClose} component={Link} to='/services'>Services</MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} to='/customsoftware'>Custom Software Development</MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} to='/mobileapps'>Mobile App Development</MenuItem>
+                  <MenuItem onClick={handleClose} component={Link} to='/websites'>Website Development</MenuItem>
                 </Menu>
             </Toolbar>
         </AppBar>
