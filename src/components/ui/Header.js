@@ -8,6 +8,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem'
 // import Typography from '@material-ui/core/Typography';
 
 import logo from '../../assets/logo.svg';
@@ -61,10 +63,24 @@ const ElevationScroll = (props) => {
  const  Header =(props) =>{
      const classes = useStyles();
      const [value,setValue] = useState(0);
+     const [anchorEl, setAnchorEl] = useState(null);
+     const [open, setOpen] = useState(false);
 
      const handleChange = (e,newValue) =>{
         setValue(newValue);
      }
+
+     const handleClick = (e) =>{
+      setAnchorEl(e.currentTarget);
+      setOpen(true);
+     }
+
+     const handleClose = (e) =>{
+       setAnchorEl(null);
+       setOpen(false);
+     }
+
+    //  To maintain correct route upon reload
      useEffect(() =>{
        if(window.location.pathname === "/" && value !== 0){
          setValue(0);
@@ -93,7 +109,9 @@ const ElevationScroll = (props) => {
                 <Tabs value={value} onChange={handleChange} className={classes.tabContainer}>
                   {/* to tell tab which path to navigate we use component prop to link the routing and to prop to tell the path*/}
                   <Tab label='Home' className={classes.tab} component={Link} to="/"/>
-                  <Tab label='Services' className={classes.tab} component={Link} to="/services"/>
+                  {/* aria-owns and aria-haspopup are required to add menu to the tabs */}
+                  <Tab label='Services' aria-owns={anchorEl ? "simple-menu": undefined} aria-haspopup={anchorEl ? true : undefined}
+                   className={classes.tab} component={Link} to="/services" onClick={(e) =>handleClick(e)}/>
                   <Tab label='The Revolution' className={classes.tab} component={Link} to="/revolution"/>
                   <Tab label='About Us' className={classes.tab} component={Link} to="/about"/>
                   <Tab label='Contact Us' className={classes.tab} component={Link} to="/contact"/>
@@ -101,6 +119,12 @@ const ElevationScroll = (props) => {
                 <Button variant='contained' color='secondary' className={classes.button}>
                   Free Estimate
                 </Button>
+                {/* id should match with aria owns which was defined on services tab */}
+                <Menu id='simple-menu' anchorEl={anchorEl} open={open} onClose={handleClose}>
+                  <MenuItem onClick={handleClose}>Custom Software Development</MenuItem>
+                  <MenuItem onClick={handleClose}>Mobile App Development</MenuItem>
+                  <MenuItem onClick={handleClose}>Website Development</MenuItem>
+                </Menu>
             </Toolbar>
         </AppBar>
         </ElevationScroll>
