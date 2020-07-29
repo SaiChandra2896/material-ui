@@ -111,7 +111,7 @@ const ElevationScroll = (props) => {
                   <Tab label='Home' className={classes.tab} component={Link} to="/"/>
                   {/* aria-owns and aria-haspopup are required to add menu to the tabs */}
                   <Tab label='Services' aria-owns={anchorEl ? "simple-menu": undefined} aria-haspopup={anchorEl ? true : undefined}
-                   className={classes.tab} component={Link} to="/services" onClick={(e) =>handleClick(e)}/>
+                   className={classes.tab} component={Link} to="/services" onMouseOver={(e) =>handleClick(e)}/>
                   <Tab label='The Revolution' className={classes.tab} component={Link} to="/revolution"/>
                   <Tab label='About Us' className={classes.tab} component={Link} to="/about"/>
                   <Tab label='Contact Us' className={classes.tab} component={Link} to="/contact"/>
@@ -120,7 +120,7 @@ const ElevationScroll = (props) => {
                   Free Estimate
                 </Button>
                 {/* id should match with aria owns which was defined on services tab */}
-                <Menu id='simple-menu' anchorEl={anchorEl} open={open} onClose={handleClose}>
+                <Menu id='simple-menu' anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{onMouseLeave: handleClose}}>
                   <MenuItem onClick={handleClose}>Custom Software Development</MenuItem>
                   <MenuItem onClick={handleClose}>Mobile App Development</MenuItem>
                   <MenuItem onClick={handleClose}>Website Development</MenuItem>
