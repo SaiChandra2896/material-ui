@@ -1,4 +1,4 @@
-import React,{Fragment,useState} from 'react';
+import React,{Fragment,useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -33,8 +33,14 @@ const ElevationScroll = (props) => {
           ...theme.mixins.toolbar,
           marginBottom: '3em'
       },
+      logoContainer:{
+        padding: 0,
+        "&:hover":{
+          backgroundColor: 'transparent'
+        }
+      },
       logo:{
-        height: '7em'
+        height: '8em'
       },
       tabContainer:{
         marginLeft: 'auto'
@@ -59,13 +65,30 @@ const ElevationScroll = (props) => {
      const handleChange = (e,newValue) =>{
         setValue(newValue);
      }
+     useEffect(() =>{
+       if(window.location.pathname === "/" && value !== 0){
+         setValue(0);
+       }else if(window.location.pathname === '/services' && value !== 1){
+         setValue(1);
+       }else if(window.location.pathname === '/revolution' && value !== 2){
+        setValue(2);
+      }else if(window.location.pathname === '/about' && value !== 3){
+        setValue(3);
+      }else if(window.location.pathname === '/contact' && value !== 4){
+        setValue(4);
+      }else if(window.location.pathname === '/estimate' && value !== 5){
+        setValue(5);
+      }
+     },[value]);
     return (
         <Fragment>
         <ElevationScroll>
         <AppBar position='fixed'>
           {/* we diable gutters disables all the default styles */}
-            <Toolbar disableGutters> 
+            <Toolbar disableGutters>
+              <Button component={Link} to="/" className={classes.logoContainer} onClick={() =>setValue(0)} disableRipple>
                 <img src={logo} alt='logo'className={classes.logo}/>
+              </Button> 
                 {/* Lets us use Tabs */}
                 <Tabs value={value} onChange={handleChange} className={classes.tabContainer}>
                   {/* to tell tab which path to navigate we use component prop to link the routing and to prop to tell the path*/}
