@@ -1,4 +1,5 @@
 import React,{Fragment,useState} from 'react';
+import {Link} from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -67,11 +68,12 @@ const ElevationScroll = (props) => {
                 <img src={logo} alt='logo'className={classes.logo}/>
                 {/* Lets us use Tabs */}
                 <Tabs value={value} onChange={handleChange} className={classes.tabContainer}>
-                  <Tab label='Home' className={classes.tab}/>
-                  <Tab label='Services' className={classes.tab}/>
-                  <Tab label='The Revolution' className={classes.tab}/>
-                  <Tab label='About Us' className={classes.tab}/>
-                  <Tab label='Contact Us' className={classes.tab}/>
+                  {/* to tell tab which path to navigate we use component prop to link the routing and to prop to tell the path*/}
+                  <Tab label='Home' className={classes.tab} component={Link} to="/"/>
+                  <Tab label='Services' className={classes.tab} component={Link} to="/services"/>
+                  <Tab label='The Revolution' className={classes.tab} component={Link} to="/revolution"/>
+                  <Tab label='About Us' className={classes.tab} component={Link} to="/about"/>
+                  <Tab label='Contact Us' className={classes.tab} component={Link} to="/contact"/>
                 </Tabs>
                 <Button variant='contained' color='secondary' className={classes.button}>
                   Free Estimate
